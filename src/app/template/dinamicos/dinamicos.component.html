@@ -1,0 +1,50 @@
+<h1>Template Dinamico</h1>
+
+<hr>
+
+
+<form (ngSubmit)="guardar()" #miFormulario="ngForm">
+    <div class="row">
+        <div class="col">
+            <input class="form-control" placeholder="Nombre de la persona" required [ngModel]="persona.nombre"
+                name="nombre">
+            <span class="form-text text-danger"
+                *ngIf="miFormulario.controls['nombre']?.errors && miFormulario.controls['nombre']?.touched">
+                Debe de ser de 3 letras
+            </span>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col">
+            <div class="input-group">
+                <input class="form-control" placeholder="Agregar favorito" [(ngModel)]="nuevoJuego" name="nuevoJuego">
+                <button class="btn btn-outline-primary" type="button" (click)="agregarJuego()">
+                    Agregar
+                </button>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-3 col-form-label">Favoritos</label>
+        <div class="col-sm-9">
+            <div class="input-group" *ngFor="let juego of persona.favoritos ; let i = index">
+                <input [(ngModel)]="juego.nombre" name="favoritos_{{i}}" class="form-control mb-1">
+                <button class="btn btn-outline-danger" type="button" (click)="eliminar(i)">
+                    Eliminar
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <button type="button" class="btn btn-primary float-end" [disabled]="miFormulario.invalid"
+                (click)="guardar()">Guardar</button>
+        </div>
+    </div>
+</form>
